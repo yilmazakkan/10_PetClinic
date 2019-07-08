@@ -1,1 +1,12 @@
-C:\Users\yilma\sts-4.2.2.RELEASE\workspace-sts\10_PetClinic\src\main\java\com\yilmazakkan\petclinic\PetClinicApplication.java
+C:\Users\yilma\git\10_PetClinic\10_PetClinic\src\main\java\com\yilmazakkan\petclinic\dao\OwnerDao.java
+C:\Users\yilma\git\10_PetClinic\10_PetClinic\src\main\java\com\yilmazakkan\petclinic\PetClinicProperties.java
+C:\Users\yilma\git\10_PetClinic\10_PetClinic\src\main\java\com\yilmazakkan\petclinic\dao\PetDao.java
+C:\Users\yilma\git\10_PetClinic\10_PetClinic\src\main\java\com\yilmazakkan\petclinic\dao\impl\OwnerDaoImpl.java
+C:\Users\yilma\git\10_PetClinic\10_PetClinic\src\main\java\com\yilmazakkan\petclinic\model\Owner.java
+C:\Users\yilma\git\10_PetClinic\10_PetClinic\src\main\java\com\yilmazakkan\petclinic\service\PetClinicService.java
+C:\Users\yilma\git\10_PetClinic\10_PetClinic\src\main\java\com\yilmazakkan\petclinic\PetClinicConfiguration.java
+C:\Users\yilma\git\10_PetClinic\10_PetClinic\src\main\java\com\yilmazakkan\petclinic\model\Pet.java
+C:\Users\yilma\git\10_PetClinic\10_PetClinic\src\main\java\com\yilmazakkan\petclinic\service\impl\PetClinicServiceImpl.java
+C:\Users\yilma\git\10_PetClinic\10_PetClinic\src\main\java\com\yilmazakkan\petclinic\exception\OwnerNotFoundException.java
+C:\Users\yilma\git\10_PetClinic\10_PetClinic\src\main\java\com\yilmazakkan\petclinic\PetClinicApplication.java
+C:\Users\yilma\git\10_PetClinic\10_PetClinic\src\main\java\com\yilmazakkan\petclinic\web\PetClinicController.java
