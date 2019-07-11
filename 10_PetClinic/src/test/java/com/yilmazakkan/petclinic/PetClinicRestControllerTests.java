@@ -7,11 +7,12 @@ import java.util.stream.Collectors;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.yilmazakkan.petclinic.model.Owner;
@@ -51,8 +52,19 @@ public class PetClinicRestControllerTests {
 		MatcherAssert.assertThat(owner.getFirstName(), Matchers.equalTo("Salim Güray"));
 	}
 	
-
-	
+	@Test
+	public void testDeleteOwner() {
+		restTemplate.delete("http://localhost:8080/rest/owner/1");
+		
+		try {
+			restTemplate.getForEntity("http://localhost:8080/rest/owner/1", Owner.class);
+			Assert.fail("Should have not returned owner ");
+			
+		} catch(HttpClientErrorException ex) {
+			 MatcherAssert.assertThat(ex.getStatusCode().value(), Matchers.equalTo(404));
+		}
+		
+	}
 	
 	
 	@Test
