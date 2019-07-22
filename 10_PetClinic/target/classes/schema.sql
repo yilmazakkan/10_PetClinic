@@ -11,8 +11,8 @@ create unique index idx_auth_username on authorities (username,authority);
 
 CREATE TABLE PUBLIC.T_OWNER(
     ID BIGINT NOT NULL,
-    FIRST_NAME VARCHAR(255),
-    LAST_NAME VARCHAR(255)
+    FIRST_NAME VARCHAR(255) not null,
+    LAST_NAME VARCHAR(255) not null
 );            
 ALTER TABLE PUBLIC.T_OWNER ADD CONSTRAINT PUBLIC.CONSTRAINT_1 PRIMARY KEY(ID);
 

@@ -1,4 +1,4 @@
-package com.yilmazakkan.petclinic.web;
+package com.yilmazakkan.petclinic;
 
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
