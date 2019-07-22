@@ -2,4 +2,5 @@ logging:
   level:
     org.springframework.web: debug
     org.springframework.jdbc.datasource: debug
+    org.springframework.security: debug
   file: petlclinic.log

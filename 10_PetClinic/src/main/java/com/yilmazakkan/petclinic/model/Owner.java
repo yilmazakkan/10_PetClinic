@@ -31,7 +31,7 @@ public class Owner {
 	@Column(name = "last_name")
 	private String lastName;
 	
-	@OneToMany
+	@OneToMany(mappedBy="owner")
 	private Set<Pet> pets = new HashSet<>();
 
 	public Long getId() {

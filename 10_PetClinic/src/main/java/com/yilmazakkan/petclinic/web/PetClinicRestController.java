@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -31,18 +32,24 @@ public class PetClinicRestController
 	@Autowired
 	private PetClinicService petClinicService;
 	
-	@RequestMapping(method = RequestMethod.DELETE,value = "/owner/{id}")
-	public ResponseEntity<?> deleteOwner(@PathVariable("id") Long id){
-		
+	@RequestMapping(method = RequestMethod.DELETE, value = "/owner/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public void deleteOwner(@PathVariable("id") Long id) {
+
 		try {
-		petClinicService.deleteOwner(id);
-		return ResponseEntity.ok().build();
-		} catch(OwnerNotFoundException ex) {
+
+			petClinicService.findOwner(id);
+			petClinicService.deleteOwner(id);
+		} catch (OwnerNotFoundException ex) {
+
 			throw ex;
-		} catch(Exception ex) {
-			throw new InternalServerException(ex); 
+
+		} catch (Exception ex) {
+
+			throw new InternalServerException(ex);
+
 		}
-		
+
 	}
 	
 	
