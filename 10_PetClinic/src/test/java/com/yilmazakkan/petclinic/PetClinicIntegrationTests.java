@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.yilmazakkan.petclinic.model.Owner;
+import com.yilmazakkan.petclinic.model.Vet;
 import com.yilmazakkan.petclinic.service.PetClinicService;
 
 @RunWith(SpringRunner.class)
@@ -19,6 +20,7 @@ public class PetClinicIntegrationTests {
 	
 	@Autowired
 	private PetClinicService petClinicService;
+	
 
 	@Test
 	public void testFindOwners() {
@@ -26,6 +28,11 @@ public class PetClinicIntegrationTests {
 		MatcherAssert.assertThat(owners.size(), Matchers.equalTo(10));
 	}
 	
+	@Test
+	public void testFindVets() {
+		List<Vet> vets = petClinicService.findsVet();
+		MatcherAssert.assertThat(vets.size(), Matchers.equalTo(3));
+	}
 	
 	
 }

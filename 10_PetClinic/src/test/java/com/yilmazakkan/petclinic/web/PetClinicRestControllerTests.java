@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -114,6 +115,22 @@ public class PetClinicRestControllerTests {
 		 List<String> firstNames = body.stream().map(e->e.get("firstName")).collect(Collectors.toList());
 		 MatcherAssert.assertThat(firstNames, Matchers.containsInAnyOrder("Kenan","Hümeyra","Salim","Muammer"));
 	}
+	
+	@Test
+	public void testServiceLevelValidation() {  //service metodlarının input değerleri ve return değerlerini validation tabi tuttuk bu teste denedik.
+		
+		Owner owner = new Owner();
+		
+	//	owner.setFirstName("K");
+	//	owner.setLastName("S");
+		
+		
+		
+		ResponseEntity<URI> responseEntity = restTemplate.postForEntity("http://localhost:8080/rest/owner", owner, URI.class);
+		MatcherAssert.assertThat(responseEntity.getStatusCode(), Matchers.equalTo(HttpStatus.PRECONDITION_FAILED));
+	
+	}
+	
 	
 	
 }
