@@ -3,7 +3,10 @@ package com.yilmazakkan.petclinic.web;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -31,18 +35,24 @@ public class PetClinicRestController
 	@Autowired
 	private PetClinicService petClinicService;
 	
-	@RequestMapping(method = RequestMethod.DELETE,value = "/owner/{id}")
-	public ResponseEntity<?> deleteOwner(@PathVariable("id") Long id){
-		
+	@RequestMapping(method = RequestMethod.DELETE, value = "/owner/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public void deleteOwner(@PathVariable("id") Long id) {
+
 		try {
-		petClinicService.deleteOwner(id);
-		return ResponseEntity.ok().build();
-		} catch(OwnerNotFoundException ex) {
+
+			petClinicService.findOwner(id);
+			petClinicService.deleteOwner(id);
+		} catch (OwnerNotFoundException ex) {
+
 			throw ex;
-		} catch(Exception ex) {
-			throw new InternalServerException(ex); 
+
+		} catch (Exception ex) {
+
+			throw new InternalServerException(ex);
+
 		}
-		
+
 	}
 	
 	
@@ -54,7 +64,11 @@ public class PetClinicRestController
 		Long id = owner.getId();
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
 		return ResponseEntity.created(location).build();
+		} catch(ConstraintViolationException ex ){  // validation içiçn cath ile exception yaptık ve hadler ettik
+			return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
 		}
+		
+		
 		catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
@@ -79,10 +93,11 @@ public class PetClinicRestController
 	}
 //-------------------------------------------------------------------------------------------------------------------------//	
 	
-	
+	@Cacheable("allOwners") // metod düzeyinde casheleme yapıldı yani 2.kez çağrıldığında method bodysine girmedik ilk çalıştırmada sorgudan önce inside getOwners mesajını concoleda görüyoruz.
 	@RequestMapping(method = RequestMethod.GET, value = "/owners")
 	public ResponseEntity<List<Owner>> getOwners() 
 	{
+		System.out.println(">>>inside getOwners...");
 		List<Owner> owners = petClinicService.findOwners();
 		return ResponseEntity.ok(owners);
 	}

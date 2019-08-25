@@ -2,20 +2,31 @@ package com.yilmazakkan.petclinic.model;
 
 import java.util.Date;
 
-public class Pet {
-	private Long id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import javax.persistence.Table;
+
+
+
+@Entity
+@Table(name = "t_pet")
+public class Pet extends BaseEntity {
+	
+	
+	@Column(name = "name")
 	private String name;
+	@Column(name = "birth_Date")
 	private Date birthDate;
 	
+	@ManyToOne
+	@JoinColumn(name = "owner_id")
 	private Owner owner;
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -43,7 +54,7 @@ public class Pet {
 
 	@Override
 	public String toString() {
-		return "Pet [id=" + id + ", name=" + name + ", birthDate=" + birthDate + ", owner=" + owner + "]";
+		return "Pet [id=" +getId()+"name=" + name + ", birthDate=" + birthDate + ", owner=" + owner + "]";
 	}
 	
 	
